@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d46cb155-e857-4372-9221-c89d2d5c0720" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/login/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/register/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AuthButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LoginForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/RegisterForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="d46cb155-e857-4372-9221-c89d2d5c0720" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,7 +129,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745509409609</updated>
       <workItem from="1745509409932" duration="17451000" />
-      <workItem from="1745582892753" duration="5825000" />
+      <workItem from="1745582892753" duration="6232000" />
     </task>
     <servers />
   </component>
