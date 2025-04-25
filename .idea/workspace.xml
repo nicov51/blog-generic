@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d46cb155-e857-4372-9221-c89d2d5c0720" name="Changes" comment="" />
+    <list default="true" id="d46cb155-e857-4372-9221-c89d2d5c0720" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/LikeButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ShareButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/article.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/articles/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/articles/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/articles/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/articles/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ArticleCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ArticleCard.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +38,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/likeAndShare" />
+                    <option name="lastUsedInstant" value="1745592380" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feature/nextauth" />
                     <option name="lastUsedInstant" value="1745571670" />
@@ -77,7 +89,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/nextauth",
+    "git-widget-placeholder": "feature/likeAndShare",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/environnement/workspace/blog-generic/src/app",
     "node.js.detected.package.eslint": "true",
@@ -129,7 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745509409609</updated>
       <workItem from="1745509409932" duration="17451000" />
-      <workItem from="1745582892753" duration="6232000" />
+      <workItem from="1745582892753" duration="11560000" />
     </task>
     <servers />
   </component>

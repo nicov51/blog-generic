@@ -2,11 +2,16 @@
 import { notFound } from "next/navigation";
 import { Typography, Container, Chip, Box } from "@mui/material";
 import Image from "next/image";
+import LikeButton from '@/components/LikeButton';
+import ShareButton from '@/components/ShareButton';
+import { getArticlePostBySlug } from '@/lib/article';
 
 export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
-  const post = await getArticlePostBySlug(params.slug);
+  const post = getArticlePostBySlug(params.slug);
 
   if (!post) return notFound();
+
+  const url = `/articles/${post.slug}`;
 
   return (
     <Container maxWidth="md" className="py-8">
@@ -35,6 +40,12 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
       </Box>
 
       <Box className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+
+      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
+        <LikeButton initialLikes={post.likes} />
+        <ShareButton url={url} />
+      </Box>
+
     </Container>
   );
 }
