@@ -2,9 +2,9 @@
 
 /* Couleurs principales */
 :root {
-  --bg-main: #B6AC97;       /* fond global */
-  --bg-header: #678760;     /* nav + footer */
-  --text-link: #356859;     /* liens visibles */
+  --bg-main: #683807;       /* fond global */
+  --bg-header: #072904;     /* nav + footer */
+  --text-link: #8f7c40;     /* liens visibles */
   --btn-bg: #356859;        /* bouton fond */
   --btn-text: #ffffff;      /* bouton texte */
 }
