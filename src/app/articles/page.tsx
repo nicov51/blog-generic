@@ -99,7 +99,7 @@ export default function ArticlesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map((article) => (
             <div key={article.slug}>
-              <ArticleCard {...article} />
+              <ArticleCard likes={0} {...article} />
             </div>
           ))}
         </div>
