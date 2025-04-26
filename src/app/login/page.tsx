@@ -27,9 +27,9 @@ export default function LoginPage() {
         <Box mt={2}>
           <Typography variant="body1">
             Pas encore inscrit ?{' '}
-            <NextLink href="/register" passHref>
-              <Link>Créez un compte</Link>
-            </NextLink>
+            <Link component={NextLink} href="/register">
+              Créez un compte
+            </Link>
           </Typography>
         </Box>
       </Box>

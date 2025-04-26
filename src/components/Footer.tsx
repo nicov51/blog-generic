@@ -61,7 +61,7 @@ export default function Footer() {
         {/* Copyright */}
         <Box mt={4} textAlign="center">
           <Typography variant="body2" color="rgba(255,255,255,0.7)">
-            &copy; {new Date().getFullYear()} MonArtisan. Tous droits réservés.
+            &copy; 2025 MonArtisan. Tous droits réservés.
           </Typography>
         </Box>
       </Container>
