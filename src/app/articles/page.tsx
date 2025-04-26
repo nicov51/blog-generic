@@ -1,54 +1,40 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ArticleCard from '@/components/ArticleCard'
 import SearchBar from '@/components/SearchBar'
 import { MenuItem, Select, InputLabel, FormControl } from '@mui/material'
-
-// ✅ Mock temporaire
-const articles = [
-  {
-    title: 'Bien choisir son plafond tendu',
-    description: 'Découvrez les critères techniques à prendre en compte.',
-    image: '/images/plafond1.jpg',
-    categories: ['Technique', 'Plafond'],
-    slug: 'bien-choisir-son-plafond',
-    views: 150,
-    createdAt: new Date('2024-05-01'),
-  },
-  {
-    title: 'Isolation acoustique et esthétique',
-    description: 'Alliez confort sonore et design intérieur.',
-    image: '/images/acoustique.jpg',
-    categories: ['Confort', 'Esthétique'],
-    slug: 'isolation-acoustique-esthetique',
-    views: 250,
-    createdAt: new Date('2024-06-01'),
-  },
-  {
-    title: 'Plafond lumineux : avantages et inspirations',
-    description: 'Intégrez des solutions LED pour transformer vos pièces.',
-    image: '/images/lumineux.jpg',
-    categories: ['Esthétique', 'Innovation'],
-    slug: 'plafond-lumineux-avantages',
-    views: 180,
-    createdAt: new Date('2024-06-15'),
-  },
-  {
-    title: 'Entretenir son plafond tendu',
-    description: 'Conseils pratiques pour garder un plafond impeccable.',
-    image: '/images/entretien.jpg',
-    categories: ['Technique'],
-    slug: 'entretenir-son-plafond',
-    views: 90,
-    createdAt: new Date('2024-05-15'),
-  },
-]
+import {Article} from "@/lib/article";
 
 export default function ArticlesPage() {
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('')
   const [sortOption, setSortOption] = useState('recent')
+  const [articles, setArticles] = useState<Article[]>([])
+
+  useEffect(() => {
+    // Récupérer les articles dynamiquement
+    const fetchArticles = async () => {
+      const articlesData: Article[] = [
+        // Vous pouvez remplacer cela par un appel API ou une fonction qui récupère les articles
+        {
+          title: 'Bien choisir son plafond tendu',
+          content: '<p>Découvrez les critères techniques à prendre en compte.</p>',
+          imageUrl: '/images/plafond1.jpg',
+          categories: ['Technique', 'Plafond'],
+          author: 'Admin',
+          createdAt: '2024-05-01T12:00:00Z',
+          slug: 'bien-choisir-son-plafond',
+          likes: 10,
+          views: 12
+        },
+        // Ajoutez d'autres articles ici
+      ];
+      setArticles(articlesData);
+    };
+
+    fetchArticles();
+  }, []);
 
   const filtered = articles
     .filter((a) =>
@@ -57,7 +43,7 @@ export default function ArticlesPage() {
     )
     .sort((a, b) => {
       if (sortOption === 'views') return b.views - a.views
-      if (sortOption === 'recent') return b.createdAt.getTime() - a.createdAt.getTime()
+      if (sortOption === 'recent') return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       return 0
     })
 
@@ -99,7 +85,7 @@ export default function ArticlesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map((article) => (
             <div key={article.slug}>
-              <ArticleCard likes={0} {...article} />
+              <ArticleCard {...article} />
             </div>
           ))}
         </div>
