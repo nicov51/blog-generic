@@ -6,7 +6,8 @@ export type Article = {
   author: string;
   createdAt: string; // ISO date string
   slug: string;
-  likes: number; // Ajoutez le champ likes
+  likes: number;
+  views: number;
 };
 
 // ✅ Mock temporaire
@@ -20,6 +21,7 @@ const articles: Article[] = [
     createdAt: '2024-05-01T12:00:00Z',
     slug: 'bien-choisir-son-plafond',
     likes: 10,
+    views: 12
   },
   {
     title: 'Isolation acoustique et esthétique',
@@ -30,6 +32,7 @@ const articles: Article[] = [
     createdAt: '2024-06-01T12:00:00Z',
     slug: 'isolation-acoustique-esthetique',
     likes: 25,
+    views: 28
   },
   {
     title: 'Plafond lumineux : avantages et inspirations',
@@ -40,6 +43,7 @@ const articles: Article[] = [
     createdAt: '2024-06-15T12:00:00Z',
     slug: 'plafond-lumineux-avantages',
     likes: 18,
+    views: 20
   },
   {
     title: 'Entretenir son plafond tendu',
@@ -50,6 +54,7 @@ const articles: Article[] = [
     createdAt: '2024-05-15T12:00:00Z',
     slug: 'entretenir-son-plafond',
     likes: 9,
+    views: 17
   },
 ]
 
