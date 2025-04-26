@@ -61,3 +61,7 @@ const articles: Article[] = [
 export function getArticlePostBySlug(slug: string): Article | null {
   return articles.find((a) => a.slug === slug) || null;
 }
+
+export function getAllArticles(): Article[] {
+  return articles;
+}
