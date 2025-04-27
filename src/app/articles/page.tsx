@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import ArticleCard from '@/components/ArticleCard'
 import SearchBar from '@/components/SearchBar'
 import { MenuItem, Select, InputLabel, FormControl } from '@mui/material'
-import {Article} from "@/lib/article";
+import {Article, getAllArticles} from "@/lib/article";
+
 
 export default function ArticlesPage() {
   const [search, setSearch] = useState('')
@@ -15,21 +16,7 @@ export default function ArticlesPage() {
   useEffect(() => {
     // Récupérer les articles dynamiquement
     const fetchArticles = async () => {
-      const articlesData: Article[] = [
-        // Vous pouvez remplacer cela par un appel API ou une fonction qui récupère les articles
-        {
-          title: 'Bien choisir son plafond tendu',
-          content: '<p>Découvrez les critères techniques à prendre en compte.</p>',
-          imageUrl: '/images/plafond1.jpg',
-          categories: ['Technique', 'Plafond'],
-          author: 'Admin',
-          createdAt: '2024-05-01T12:00:00Z',
-          slug: 'bien-choisir-son-plafond',
-          likes: 10,
-          views: 12
-        },
-        // Ajoutez d'autres articles ici
-      ];
+      const articlesData = getAllArticles();
       setArticles(articlesData);
     };
 
@@ -64,6 +51,7 @@ export default function ArticlesPage() {
             <MenuItem value="Plafond">Plafond</MenuItem>
             <MenuItem value="Confort">Confort</MenuItem>
             <MenuItem value="Esthétique">Esthétique</MenuItem>
+            <MenuItem value="Innovation">Innovation</MenuItem>
           </Select>
         </FormControl>
 

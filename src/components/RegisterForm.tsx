@@ -3,21 +3,39 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-// import { signIn } from 'next-auth/react'; // Importer lorsque next-auth est installé
+import {signIn} from "next-auth/react";
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailSignUp = (event: React.FormEvent) => {
+  const handleEmailSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
     // Logique pour créer un compte avec email et mot de passe
-    console.log('Email:', email, 'Password:', password);
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (res.ok) {
+        console.log("Compte créé !");
+        // Rediriger vers la page de connexion
+        window.location.href = "/login";
+      }
+      else {
+        const data = await res.json();
+        console.error("Erreur:", data.error);
+      }
+    }
+    catch (error) {
+      console.error("Erreur inconnue:", error);
+    }
   };
 
   const handleProviderSignIn = (provider: string) => {
-    // Décommentez cette ligne lorsque next-auth est configuré
-    // signIn(provider);
+    signIn(provider);
     console.log(`Signing in with ${provider}`);
   };
 
