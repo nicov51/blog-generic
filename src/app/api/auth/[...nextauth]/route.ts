@@ -5,9 +5,9 @@ import FacebookProvider from "next-auth/providers/facebook";
 import LinkedInProvider from "next-auth/providers/linkedin";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/lib/prisma"; // Je t'explique après où le mettre
+import { prisma } from "@/lib/prisma";
 
-import { compare } from "bcryptjs"; // si tu hash tes passwords
+import { compare } from "bcryptjs"; 
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),

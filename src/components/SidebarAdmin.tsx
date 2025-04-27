@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Drawer, Box, List, ListItem, ListItemText } from "@mui/material";
+import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 export default function SidebarAdmin() {
   return (
     <Drawer
@@ -11,23 +11,23 @@ export default function SidebarAdmin() {
     >
 
       <List>
-        <ListItem component={Link} href="/admin/create-article">
+        <ListItem component={Link} href="/adminDashboard/create-article">
           <ListItemText primary="Creer un article"></ListItemText>
         </ListItem>
 
-        <ListItem component={Link} href="/admin/manage-articles">
+        <ListItem component={Link} href="/adminDashboard/manage-articles">
           <ListItemText primary="Gerer les articles"></ListItemText>
         </ListItem>
 
-        <ListItem component={Link} href="/admin/moderate-reviews">
+        <ListItem component={Link} href="/adminDashboard/moderate-reviews">
           <ListItemText primary="Moderer les Avis"></ListItemText>
         </ListItem>
 
-        <ListItem component={Link} href="/admin/article-performance">
+        <ListItem component={Link} href="/adminDashboard/article-performance">
           <ListItemText primary="Suivi des performances"></ListItemText>
         </ListItem>
 
-        <ListItem component={Link} href="/admin/create-newsletter">
+        <ListItem component={Link} href="/adminDashboard/create-newsletter">
           <ListItemText primary="Creer une newsletter"></ListItemText>
         </ListItem>
       </List>
