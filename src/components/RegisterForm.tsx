@@ -34,9 +34,13 @@ export default function RegisterForm() {
     }
   };
 
-  const handleProviderSignIn = (provider: string) => {
-    signIn(provider);
-    console.log(`Signing in with ${provider}`);
+  const handleProviderSignIn = async (provider: string) => {
+    try {
+      const result = await signIn(provider);
+      console.log(`Signed in with ${provider}`, result);
+    } catch (error) {
+      console.error(`Erreur lors de la connexion avec ${provider}:`, error);
+    }
   };
 
   return (
