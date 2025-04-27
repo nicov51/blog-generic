@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import {signIn} from "next-auth/react";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // Logique de soumission du formulaire
-    console.log('Email:', email, 'Password:', password);
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (res?.error) {
+        console.error("Erreur:", res.error);
+      } else {
+        console.log("Connexion réussie !");
+        // Rediriger l'utilisateur après une connexion réussie
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error("Erreur lors de la connexion:", error);
+    }
   };
 
   return (
