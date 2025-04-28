@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/app/generated/prisma"
 }
 
 datasource db {
@@ -64,17 +63,18 @@ model VerificationToken {
 }
 
 model Article {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   title     String
   content   String
-  imageUrl  String
-  slug      String   @unique
-  category  Category
-  author    String
-  createdAt DateTime @default(now())
-
-  reviews Review[]
-  likes   Like[]
+  imageUrl  String?
+  slug      String    @unique
+  category  Category?
+  author    String?
+  createdAt DateTime  @default(now())
+  views     Int       @default(0) // Nombre de vues
+  shares    Int       @default(0) // Nombre de partages
+  reviews   Review[]
+  likes     Like[]
 }
 
 enum Category {
