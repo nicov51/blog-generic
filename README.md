@@ -45,11 +45,17 @@ npx prisma db push
 
 pour seed la base:
 ```bash
-npx prisma db seed
+npx tsx prisma/seed.ts
+
 ```
 si ts n'est pas installé :
 ```bash
 npm install ts-node -D
+```
+
+pour reset la base 
+```bash
+npx prisma migrate reset
 ```
 
 ## Deploy on Vercel

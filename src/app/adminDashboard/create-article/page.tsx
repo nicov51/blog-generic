@@ -5,7 +5,13 @@ import {useRouter} from "next/navigation";
 import {Box, MenuItem, Select, TextField, Button, Typography} from "@mui/material";
 import {Category} from "@prisma/client";
 
-
+const categoryOptions = [
+  Category.TECHNIQUE,
+  Category.PLAFOND,
+  Category.CONFORT,
+  Category.ESTHETIQUE,
+  Category.INNOVATION,
+];
 export default function CreateArticlePage() {
   const router = useRouter();
 
@@ -18,7 +24,7 @@ export default function CreateArticlePage() {
   const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("api/articles",
+    const res = await fetch("/api/articles",
       {
         method: "POST",
         headers: {
@@ -80,7 +86,7 @@ sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
     variant="outlined">
 
     <MenuItem value=""> Choisir une categorie</MenuItem>
-    {Object.values(category).map((cat) => (
+    {categoryOptions.map((cat) => (
       <MenuItem key={cat} value={cat}>
         {cat}
       </MenuItem>
