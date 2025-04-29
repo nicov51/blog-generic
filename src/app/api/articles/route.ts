@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // Petite fonction utilitaire pour slugifier
-//on demande pas a l'utilisateur de l'ecrire coté front
 function generateSlug(title: string): string {
   return title
     .toLowerCase()
