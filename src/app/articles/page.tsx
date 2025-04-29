@@ -1,21 +1,14 @@
+
 import { getAllArticles } from "@/lib/article";
 import ArticleCard from "@/components/ArticleCard";
 import { TextField, Select, InputLabel, FormControl, MenuItem } from "@mui/material";
 
 
-type Props = {
-  searchParams?: {
-    search?: string;
-    category?: string;
-    sort?: string;
-  };
-};
-
-export default async function ArticlesPage({
-                                             searchParams,
-                                           }: {
-  searchParams?: { category?: string; sort?: string; search?: string }
+export default async function ArticlesPage({searchParams: rawSearchParams,}: {
+  searchParams: Promise<{ search?: string; category?: string; sort?: string }>;
 }) {
+  const searchParams = await rawSearchParams;
+
   const search = searchParams?.search?.toLowerCase() || "";
   const categoryFilter = searchParams?.category || "";
   const sortOption = searchParams?.sort || "recent";

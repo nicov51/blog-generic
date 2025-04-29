@@ -1,21 +1,27 @@
-//import { getArticlePostBySlug } from "@/src/lib/api";
+
 import { notFound } from "next/navigation";
 import { Typography, Container, Chip, Box } from "@mui/material";
 import Image from "next/image";
 import LikeButton from '@/components/LikeButton';
 import ShareButton from '@/components/ShareButton';
+import ReviewForm from '@/components/ReviewForm';
+import ReviewCard from '@/components/ReviewCard';
 import { getArticleBySlug } from '@/lib/article';
 import { getReviewsByArticleId} from "@/lib/reviews";
 
 
-export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
+export default async function ArticleDetailPage({
+                                                  params: rawParams,
+                                                }: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await rawParams;
 
-  //todo corriger pb async
-  const post = await getArticleBySlug(params.slug);
+  const post = await getArticleBySlug(slug);
   if (!post) return notFound();
-  const url = `/articles/${post.slug}`;
 
-  const reviews = await getReviewsByArticleId(post.id)
+  const url = `/articles/${post.slug}`;
+  const reviews = await getReviewsByArticleId(post.id);
 
   return (
     <Container maxWidth="md" className="py-8">
@@ -53,20 +59,25 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
       <Box sx={{ mt: 8 }}>
         <Typography variant="h5" gutterBottom>Avis des lecteurs</Typography>
 
+
+
         {reviews.length > 0 ? (
           reviews.map((review) => (
-            <Box key={review.id} sx={{ mb: 2, p: 2, border: '1px solid #ddd', borderRadius: 2 }}>
-              <Typography variant="subtitle2" color="text.secondary">
-                {review.user.name} - {new Date(review.createdAt).toLocaleDateString()}
-              </Typography>
-              <Typography variant="body1">{review.content}</Typography>
-              <Typography variant="caption">Note : {review.rating}/5</Typography>
-            </Box>
+            <ReviewCard
+              key={review.id}
+              content={review.content}
+              rating={review.rating}
+              userName={review.user?.name}
+              createdAt={review.createdAt}
+            />
           ))
         ) : (
           <Typography>Aucun avis pour cet article.</Typography>
         )}
       </Box>
+
+      <ReviewForm articleId={post.id} />
+
 
     </Container>
   );
