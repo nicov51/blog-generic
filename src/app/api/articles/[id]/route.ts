@@ -40,6 +40,25 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
+export async function GET(req: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
+
+  try {
+    const article = await prisma.article.findUnique({
+      where: { id },
+    });
+
+    if (!article) {
+      return NextResponse.json({ error: "Article non trouvé" }, { status: 404 });
+    }
+
+    return NextResponse.json(article);
+  } catch (error) {
+    console.error("Erreur récupération article :", error);
+    return NextResponse.json({ error: "Erreur interne" }, { status: 500 });
+  }
+}
+
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   const { id } = params;
 

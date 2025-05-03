@@ -27,8 +27,8 @@ export default function SidebarAdmin() {
           <ListItemText primary="Suivi des performances"></ListItemText>
         </ListItem>
 
-        <ListItem component={Link} href="/adminDashboard/create-newsletter">
-          <ListItemText primary="Creer une newsletter"></ListItemText>
+        <ListItem component={Link} href="/adminDashboard/users">
+          <ListItemText primary="gerer mes utilisateurs"></ListItemText>
         </ListItem>
       </List>
     </Drawer>

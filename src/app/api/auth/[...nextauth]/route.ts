@@ -55,6 +55,13 @@ export const authOptions = {
       },
     }),
   ],
+  callbacks: {
+    // Redirection après connexion
+    async redirect({ baseUrl }: {url: string; baseUrl: string}) {
+      // Redirige toujours vers la page des articles après login
+      return `${baseUrl}/articles`;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/auth/login", // tu peux customiser ta page de login
