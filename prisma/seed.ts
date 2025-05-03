@@ -1,6 +1,6 @@
 // prisma/seed.ts
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Category} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -28,7 +28,7 @@ async function main() {
       title: 'Bien choisir son plafond tendu',
       content: '<p>Découvrez les critères techniques à prendre en compte.</p>',
       imageUrl: '/images/plafond1.jpg',
-      category: 'TECHNIQUE',
+      category:  Category.TECHNIQUE,
       author: 'Admin',
       slug: 'bien-choisir-son-plafond-tendu',
     },
@@ -39,7 +39,7 @@ async function main() {
       title: 'Isolation acoustique et esthétique',
       content: '<p>Alliez confort sonore et design intérieur.</p>',
       imageUrl: '/images/acoustique.jpg',
-      category: 'CONFORT',
+      category: Category.CONFORT,
       author: 'Admin',
       slug: 'isolation-acoustique-et-esthetique',
     },
@@ -50,7 +50,7 @@ async function main() {
       title: 'Plafond lumineux : avantages et inspirations',
       content: '<p>Intégrez des solutions LED pour transformer vos pièces.</p>',
       imageUrl: '/images/lumineux.jpg',
-      category: 'INNOVATION',
+      category: Category.INNOVATION,
       author: 'Admin',
       slug: 'plafond-lumineux-avantages-inspirations',
     },
@@ -61,7 +61,7 @@ async function main() {
       title: 'Entretenir son plafond tendu',
       content: '<p>Conseils pratiques pour garder un plafond impeccable.</p>',
       imageUrl: '/images/entretien.jpg',
-      category: 'TECHNIQUE',
+      category: Category.TECHNIQUE,
       author: 'Admin',
       slug: 'entretenir-son-plafond-tendu',
     },

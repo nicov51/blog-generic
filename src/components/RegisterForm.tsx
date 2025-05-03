@@ -36,7 +36,7 @@ export default function RegisterForm() {
 
   const handleProviderSignIn = async (provider: string) => {
     try {
-      const result = await signIn(provider);
+      const result = await signIn(provider, { callbackUrl: '/articles' });
       console.log(`Signed in with ${provider}`, result);
     } catch (error) {
       console.error(`Erreur lors de la connexion avec ${provider}:`, error);
