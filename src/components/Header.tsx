@@ -10,11 +10,13 @@ export default function Header() {
   if (!session?.user) return null;
 
   return(
-    <Box className="bg-green-100 text-green-800 px-4 py-2">
+    <Box className="bg-green-100 text-green-800 px-4 py-2 space-y-1">
       <Typography variant ="body1">
         Bonjour { session.user.name } !
       </Typography>
-
+      <Typography variant="body2">
+        Veuillez confirmer votre adresse email pour pouvoir déposer un avis.
+      </Typography>
     </Box>
   )
 }
