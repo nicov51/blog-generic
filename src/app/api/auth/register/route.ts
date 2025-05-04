@@ -4,10 +4,10 @@ import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  const { email, password, name } = await req.json();
 
-  if (!email || !password) {
-    return NextResponse.json({ error: "Email et mot de passe requis" }, { status: 400 });
+  if (!email || !password || !name) {
+    return NextResponse.json({ error: "Tous les champs sont requis" }, { status: 400 });
   }
 
   // Vérifie si l'email est déjà utilisé
@@ -25,6 +25,7 @@ export async function POST(req: Request) {
   // Crée l'utilisateur
   const user = await prisma.user.create({
     data: {
+      name,
       email,
       password: hashedPassword,
     },

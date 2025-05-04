@@ -1,4 +1,7 @@
+"use client"
+
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -8,6 +11,8 @@ import {signIn} from "next-auth/react";
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const router = useRouter();
 
   const handleEmailSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -16,13 +21,22 @@ export default function RegisterForm() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name}),
       });
 
       if (res.ok) {
-        console.log("Compte créé !");
-        // Rediriger vers la page de connexion
-        window.location.href = "/login";
+        //On connecte l'utilisateur
+        const result = await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+
+        if (result?.ok) {
+          //On redirige
+          router.push('/articles');
+        }
+
       }
       else {
         const data = await res.json();
@@ -48,6 +62,18 @@ export default function RegisterForm() {
       <Typography variant="body1" gutterBottom>
         Créez votre compte avec un email valide et choisissez un mot de passe
       </Typography>
+
+      <TextField
+        fullWidth
+        label="name"
+        type="name"
+        variant="outlined"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        sx={{ mb: 2 }}
+        required
+      />
+
       <TextField
         fullWidth
         label="Email"
@@ -55,7 +81,9 @@ export default function RegisterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         sx={{ mb: 2 }}
+        required
       />
+
       <TextField
         fullWidth
         label="Mot de passe"
@@ -64,7 +92,9 @@ export default function RegisterForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         sx={{ mb: 2 }}
+        required
       />
+
       <Button type="submit" variant="contained" color="primary">
         Créer un compte
       </Button>
