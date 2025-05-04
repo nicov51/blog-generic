@@ -3,6 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+
 export async function POST(req: Request) {
   const { email, password, name } = await req.json();
 
@@ -14,6 +17,16 @@ export async function POST(req: Request) {
   const existingUser = await prisma.user.findUnique({
     where: { email },
   });
+
+  if (!emailRegex.test(email)) {
+    return NextResponse.json({ error: "Email invalide" }, { status: 400 });
+  }
+
+  if (!passwordRegex.test(password)) {
+    return NextResponse.json({
+      error: "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un caractère spécial.",
+    }, { status: 400 });
+  }
 
   if (existingUser) {
     return NextResponse.json({ error: "Email déjà utilisé" }, { status: 400 });

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography, Alert } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -12,10 +12,37 @@ export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
+  const isPasswordSecure = (password: string) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  };
+
+  const isEmailValid = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const handleEmailSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
+    setError('');
+
+    if (!email || !password || !name) {
+      setError("Tous les champs sont requis.");
+      return;
+    }
+
+    if (!isEmailValid(email)) {
+      setError("L'adresse email est invalide.");
+      return;
+    }
+
+    if (!isPasswordSecure(password)) {
+      setError("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un caractère spécial.");
+      return;
+    }
+
     // Logique pour créer un compte avec email et mot de passe
     try {
       const res = await fetch("/api/auth/register", {
@@ -40,11 +67,11 @@ export default function RegisterForm() {
       }
       else {
         const data = await res.json();
-        console.error("Erreur:", data.error);
+        setError(data.error || "Une erreur est survenue.");
       }
     }
     catch (error) {
-      console.error("Erreur inconnue:", error);
+      setError("Erreur inconnue:");
     }
   };
 
@@ -63,10 +90,16 @@ export default function RegisterForm() {
         Créez votre compte avec un email valide et choisissez un mot de passe
       </Typography>
 
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+
       <TextField
         fullWidth
-        label="name"
-        type="name"
+        label="Nom"
+        type="text"
         variant="outlined"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -81,7 +114,10 @@ export default function RegisterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         sx={{ mb: 2 }}
+        type="email"
         required
+        error={!!error && error.toLowerCase().includes("email")}
+        helperText={!!error && error.toLowerCase().includes("email") ? error : ''}
       />
 
       <TextField
@@ -93,6 +129,11 @@ export default function RegisterForm() {
         onChange={(e) => setPassword(e.target.value)}
         sx={{ mb: 2 }}
         required
+        helperText={
+          !!error && error.toLowerCase().includes("mot de passe")
+            ? error
+            : 'Au moins 8 caractères, une majuscule, une minuscule et un caractère spécial'
+        }
       />
 
       <Button type="submit" variant="contained" color="primary">
