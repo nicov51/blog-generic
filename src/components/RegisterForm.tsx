@@ -1,5 +1,10 @@
+"use client"
+
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { TextField, Button, Box, Typography, Alert, IconButton, InputAdornment } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -8,29 +13,68 @@ import {signIn} from "next-auth/react";
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+  const isPasswordSecure = (password: string) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  };
+
+  const isEmailValid = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const handleEmailSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
+    setError('');
+
+    if (!email || !password || !name) {
+      setError("Tous les champs sont requis.");
+      return;
+    }
+
+    if (!isEmailValid(email)) {
+      setError("L'adresse email est invalide.");
+      return;
+    }
+
+    if (!isPasswordSecure(password)) {
+      setError("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un caractère spécial.");
+      return;
+    }
+
     // Logique pour créer un compte avec email et mot de passe
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name}),
       });
 
       if (res.ok) {
-        console.log("Compte créé !");
-        // Rediriger vers la page de connexion
-        window.location.href = "/login";
+        //On connecte l'utilisateur
+        const result = await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+
+        if (result?.ok) {
+          //On redirige
+          router.push('/articles');
+        }
+
       }
       else {
         const data = await res.json();
-        console.error("Erreur:", data.error);
+        setError(data.error || "Une erreur est survenue.");
       }
     }
     catch (error) {
-      console.error("Erreur inconnue:", error);
+      setError("Erreur inconnue:");
     }
   };
 
@@ -48,6 +92,24 @@ export default function RegisterForm() {
       <Typography variant="body1" gutterBottom>
         Créez votre compte avec un email valide et choisissez un mot de passe
       </Typography>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+
+      <TextField
+        fullWidth
+        label="Nom"
+        type="text"
+        variant="outlined"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        sx={{ mb: 2 }}
+        required
+      />
+
       <TextField
         fullWidth
         label="Email"
@@ -55,16 +117,43 @@ export default function RegisterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         sx={{ mb: 2 }}
+        type="email"
+        required
+        error={!!error && error.toLowerCase().includes("email")}
+        helperText={!!error && error.toLowerCase().includes("email") ? error : ''}
       />
+
       <TextField
         fullWidth
         label="Mot de passe"
-        type="password"
+        type={showPassword ? "text" : "password"}
         variant="outlined"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         sx={{ mb: 2 }}
+        required
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  edge="end"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
+        }}
+        helperText={
+          !!error && error.toLowerCase().includes("mot de passe")
+            ? error
+            : 'Au moins 8 caractères, une majuscule, une minuscule et un caractère spécial'
+        }
       />
+
       <Button type="submit" variant="contained" color="primary">
         Créer un compte
       </Button>

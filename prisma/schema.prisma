@@ -18,12 +18,21 @@ model User {
   name          String?
   email         String    @unique
   emailVerified DateTime?
+  role          Role      @default(visitor)
   image         String?
-  password      String? // si tu veux login avec credentials
+  password      String? // seulement pour comptes credentials
+  isverified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
   accounts      Account[]
   sessions      Session[]
   Review        Review[]
   Like          Like[]
+}
+
+enum Role {
+  visitor
+  user
+  admin
 }
 
 model Account {

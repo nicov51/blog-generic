@@ -1,13 +1,27 @@
+"use client";
+
 import React, { useState } from 'react';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {signIn} from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setError('');
+
+    if (!email || !password) {
+      setError("Veuillez remplir tous les champs.");
+      return;
+    }
+
     // Logique de soumission du formulaire
     try {
       const res = await signIn("credentials", {
@@ -17,19 +31,20 @@ export default function LoginForm() {
       });
 
       if (res?.error) {
-        console.error("Erreur:", res.error);
+        setError(res.error);
       } else {
-        console.log("Connexion réussie !");
         // Rediriger l'utilisateur après une connexion réussie
-        window.location.href = "/";
+        router.push ("/articles");
       }
     } catch (error) {
-      console.error("Erreur lors de la connexion:", error);
+      setError("Erreur lors de la connexion:");
     }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', mt: 1 }}>
+      {error && <Box sx={{ color: 'red', mb: 2 }}>{error}</Box>}
+
       <TextField
         fullWidth
         label="Email"
@@ -41,11 +56,26 @@ export default function LoginForm() {
       <TextField
         fullWidth
         label="Mot de passe"
-        type="password"
+        type={showPassword ? "text" : "password"}
         variant="outlined"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         sx={{ mb: 2 }}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  edge="end"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
+        }}
       />
       <Button type="submit" variant="contained" color="primary">
         Se connecter
