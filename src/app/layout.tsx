@@ -1,9 +1,7 @@
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import ClientLayoutWrapper from '@/components/ClientLayoutWrapper';
 import React from "react";
-import SessionWrapper from "@/lib/SessionWrapper";
+
 
 
 export const metadata = {
@@ -17,18 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     <html lang="fr">
     <body className="bg-white text-black">
-    <SessionWrapper>
-
-      < Navbar />
-      < Header />
-
-    <main className= "max-w-6xl mx-auto px-4 py-6">
+    <ClientLayoutWrapper>
       {children}
-    </main>
-
-    <Footer />
-
-    </SessionWrapper>
+    </ClientLayoutWrapper>
     </body>
     </html>
 
