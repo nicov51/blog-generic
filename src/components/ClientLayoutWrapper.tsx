@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import SessionWrapper from '@/lib/SessionWrapper';
 import SidebarAdmin from '@/components/SidebarAdmin';
 import React from "react";
-import { Box } from '@mui/material';
+import { Container, Box } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
@@ -31,7 +31,9 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
     <SessionWrapper>
       <Navbar />
       <Header />
-      <main className="max-w-6xl mx-auto px-4 py-6">{children}</main>
+      <Container maxWidth="lg" sx={{ py: 6 }}>
+        <main>{children}</main>
+      </Container>
       <Footer />
     </SessionWrapper>
   );

@@ -9,8 +9,8 @@
   --btn-text: #ffffff;      /* bouton texte */
 }
 
-/* Applique au body */
-body {
+
+ body {
   background-color: var(--bg-main);
   margin: 0;
   padding: 0;
@@ -18,14 +18,12 @@ body {
 }
 
 
-/* Nav et Footer */
 nav, footer {
   background-color: var(--bg-header);
   color: white;
   padding: 1rem;
 }
 
-/* Liens */
 a {
   color: var(--text-link);
   text-decoration: none;
@@ -35,7 +33,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Boutons */
 button {
   background-color: var(--btn-bg);
   color: var(--btn-text);
@@ -49,7 +46,6 @@ button:hover {
   opacity: 0.9;
 }
 
-/* Style générique pour cartes */
 .card {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 0.5rem;
