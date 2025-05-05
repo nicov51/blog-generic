@@ -13,7 +13,7 @@ import { getReviewsByArticleId} from "@/lib/reviews";
 
 // ✅ MÉTADONNÉES DYNAMIQUES POUR SEO & PARTAGE
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const post = await getArticleBySlug(slug);
 
   if (!post) {
@@ -43,7 +43,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ArticleDetailPage({ params: { slug } }: { params: { slug: string } }) {
+export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
+  const { slug } = await params;
   const post = await getArticleBySlug(slug);
   if (!post) return notFound();
 
