@@ -5,7 +5,7 @@ export const metadata = {
   description: "Installation de plafonds tendus, qualité et finition professionnelle depuis plus de 15 ans.",
   openGraph: {
     title: "Plafonds tendus - Artisan expert depuis 2009",
-    images: ["/images/header.jpg"],
+    images: ["/images/header-hero.jpg"],
   }
 };
 

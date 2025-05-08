@@ -9,7 +9,6 @@
   --btn-text: #ffffff;      /* bouton texte */
 }
 
-
  body {
   background-color: var(--bg-main);
   margin: 0;
@@ -46,13 +45,13 @@ button:hover {
   opacity: 0.9;
 }
 
-.card {
+/*.card {
+  background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  background: white;
   transition: transform 0.2s ease;
 }
 .card:hover {
   transform: scale(1.01);
-}
+}*/

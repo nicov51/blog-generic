@@ -5,6 +5,7 @@ import React from "react";
 
 
 export const metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "Nom de ton site",
   description: "Description ici",
 };

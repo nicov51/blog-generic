@@ -65,9 +65,9 @@ export default function ArticlesClient({ articles }: { articles: Article[] }) {
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px'}}>
           {filtered.map((article) => (
-            <div key={article.slug}>
+            <div key={article.slug} className="h-full">
               <ArticleCard {...article} />
             </div>
           ))}

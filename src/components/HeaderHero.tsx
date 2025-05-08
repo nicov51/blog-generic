@@ -7,7 +7,7 @@ export default function HeaderHero() {
   return (
     <Box sx={{ position: "relative", width: "100%", height: "400px" }}>
       <Image
-        src="/images/header.jpg" // mets ton image ici
+        src="/images/header-hero.jpg" // mets ton image ici
         alt="Plafond tendu"
         fill
         style={{ objectFit: "cover" }}
