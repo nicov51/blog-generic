@@ -1,4 +1,4 @@
-
+import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 import { Typography, Container, Chip, Box } from "@mui/material";
 import Image from "next/image";
@@ -10,13 +10,41 @@ import { getArticleBySlug } from '@/lib/article';
 import { getReviewsByArticleId} from "@/lib/reviews";
 
 
-export default async function ArticleDetailPage({
-                                                  params: rawParams,
-                                                }: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await rawParams;
 
+// ✅ MÉTADONNÉES DYNAMIQUES POUR SEO & PARTAGE
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getArticleBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "Article introuvable - TonSite",
+      description: "Cet article n'existe pas ou a été supprimé.",
+    };
+  }
+
+  const description = post.content.replace(/<[^>]+>/g, '').slice(0, 150) + '...';
+
+  return {
+    title: `${post.title} - TonSite`,
+    description,
+    openGraph: {
+      title: post.title,
+      description,
+      images: [post.imageUrl ?? '/placeholder.jpg'],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: [post.imageUrl ?? '/placeholder.jpg'],
+    },
+  };
+}
+
+export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
+  const { slug } = await params;
   const post = await getArticleBySlug(slug);
   if (!post) return notFound();
 

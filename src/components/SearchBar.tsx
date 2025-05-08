@@ -4,17 +4,17 @@ import { TextField } from '@mui/material'
 
 type SearchBarProps = {
   value: string
-  onChange: (value: string) => void
+  onChangeAction: (value: string) => void
 }
 
-export default function SearchBar({ value, onChange }: SearchBarProps) {
+export default function SearchBar({ value, onChangeAction }: SearchBarProps) {
   return (
     <TextField
       fullWidth
       label="Rechercher un article"
       variant="outlined"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => onChangeAction(e.target.value)}
       sx={{ mb: 3 }}
     />
   )
