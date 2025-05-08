@@ -48,6 +48,7 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
   const post = await getArticleBySlug(slug);
   if (!post) return notFound();
 
+
   const url = `/articles/${post.slug}`;
   const reviews = await getReviewsByArticleId(post.id);
 
@@ -80,7 +81,10 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
       <Box className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
 
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
-        <LikeButton initialLikes={post.likes} />
+        <LikeButton
+          articleSlug={post.slug} // <-- Ajoutez cette prop
+          initialLikes={post.likes || 26}
+        />
         <ShareButton url={url} />
       </Box>
 
