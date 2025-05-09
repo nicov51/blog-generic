@@ -24,21 +24,33 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   const description = post.content.replace(/<[^>]+>/g, '').slice(0, 150) + '...';
+  const fullUrl = `https://votredomaine.com/articles/${slug}`; // Ajoutez votre domaine réel
 
   return {
     title: `${post.title} - TonSite`,
     description,
+    alternates: {
+      canonical: fullUrl, // Important pour LinkedIn
+    },
     openGraph: {
       title: post.title,
       description,
-      images: [post.imageUrl ?? '/placeholder.jpg'],
+      url: fullUrl, // URL absolue requise
+      images: [{
+        url: post.imageUrl ?? 'https://votredomaine.com/placeholder.jpg', // URL absolue
+        width: 1200, // Dimensions explicites
+        height: 630,
+        alt: `Image pour ${post.title}`,
+      }],
       type: 'article',
+      publishedTime: post.createdAt.toISOString(), // Important pour les articles
+      siteName: "TonSite", // Nom de votre site
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description,
-      images: [post.imageUrl ?? '/placeholder.jpg'],
+      images: [post.imageUrl ?? 'https://votredomaine.com/placeholder.jpg'], // URL absolue
     },
   };
 }
@@ -85,7 +97,7 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
           articleSlug={post.slug} // <-- Ajoutez cette prop
           initialLikes={post.likes || 26}
         />
-        <ShareButton url={url} />
+        <ShareButton url={url}  title={post.title}/>
       </Box>
 
       <Box sx={{ mt: 8 }}>
